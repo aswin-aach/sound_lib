@@ -2,6 +2,8 @@
 #include<stdlib.h>
 #include<stdio.h>
 
+
+
 void shrink(int* s, long n_i, long n_f)
 {
     int r_s = n_i / n_f;
@@ -18,3 +20,23 @@ void shrink(int* s, long n_i, long n_f)
         }
     }
 }
+
+
+
+
+
+
+
+
+void print_sample_array(int * array, long length)
+{
+	for(long i = 0; i<length; i++)
+	{
+		printf("%d",i);
+	}
+}	
+
+
+
+
+
