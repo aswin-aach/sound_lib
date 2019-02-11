@@ -2,6 +2,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+static int is_valid(Array* sample_array) {
+	if (sample_array == NULL) {
+		return 0;
+	}
+	int* sample = (int*) sample_array->elements;
+	long length = sample_array->length;
+	if (sample == NULL || length == 0) {
+		return 0;
+	}
+	return 1;
+}
+
 Array* snip_samples(Array* sample_array, long start_index, long end_index) {
 	if (!is_valid(sample_array) || start_index < 0 ||
 		end_index > sample_array->length - 1 || start_index > end_index) {
@@ -58,17 +70,5 @@ Array* add_samples(Array* source_sample_array, Array* target_sample_array) {
 		}
 	}
 	return summed_sample_array;
-}
-
-static bool is_valid(Array* sample_array) {
-	if (sample_array == NULL) {
-		return false;
-	}
-	int* sample = (int*) sample_array->elements;
-	long length = sample_array->length;
-	if (sample == NULL || length == 0) {
-		return false;
-	}
-	return true;
 }
 
