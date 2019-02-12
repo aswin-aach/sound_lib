@@ -1,4 +1,4 @@
-#include "smpop.h"
+#include "../soundlib.h"
 #include<stdlib.h>
 #include<stdio.h>
 
