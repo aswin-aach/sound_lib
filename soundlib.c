@@ -1,6 +1,23 @@
-#include "smpop.h"
+#include "soundlib.h"
 #include <stdio.h>
 #include <stdlib.h>
+
+void read_file(char* path, Array* buffer) {
+	FILE* file_pointer;
+	long file_length;
+	file_pointer = fopen(path, "rb");
+	if(file_pointer == NULL) {
+		fprintf(stderr, "%s file failed to open.\n", path);
+		return;
+	}
+	fseek(file_pointer, 0, SEEK_END);
+	file_length = ftell(file_pointer);
+	rewind(file_pointer);
+	buffer->elements = malloc(file_length);
+	fread(buffer->elements, sizeof(int), file_length/sizeof(int), file_pointer);
+	buffer->length = file_length/sizeof(int);
+	fclose(file_pointer);
+}
 
 static int is_valid(Array* sample_array) {
 	if (sample_array == NULL) {
@@ -18,7 +35,7 @@ Array* snip_samples(Array* sample_array, long start_index, long end_index) {
 	if (!is_valid(sample_array) || start_index < 0 ||
 		end_index > sample_array->length - 1 || start_index > end_index) {
 		fprintf(stderr, "Invalid input to snip_samples().\n");
-		exit(-1);
+		return NULL;
 	}
 	int* sample = (int*) sample_array->elements;
 	long new_length = end_index - start_index + 1;
@@ -34,7 +51,7 @@ Array* snip_samples(Array* sample_array, long start_index, long end_index) {
 Array* loop_samples(Array* sample_array, long duration) {
 	if (!is_valid(sample_array) || duration < 1) {
 		fprintf(stderr, "Invalid input to loop_samples().\n");
-		exit(-1);
+		return NULL;
 	}
 	int* sample = (int*) sample_array->elements;
 	long length = sample_array->length;
@@ -51,7 +68,7 @@ Array* add_samples(Array* source_sample_array, Array* target_sample_array) {
 	if (!is_valid(source_sample_array) || !is_valid(target_sample_array) ||
 		target_sample_array->length < source_sample_array->length) {
 		fprintf(stderr, "Invalid input to add_samples().\n");
-		exit(-1);
+		return NULL;
 	}
 	int* source_sample = (int*) source_sample_array->elements;
 	int* target_sample = (int*) target_sample_array->elements;
