@@ -2,7 +2,7 @@
 #define soundlib_h
 
 /*
-	Holds a generic array with length for processing samples of custom sizes.
+Holds a generic array and its length. Mainly used for processing raw sample data.
 */
 typedef struct Array {
 	void* elements;
@@ -10,26 +10,43 @@ typedef struct Array {
 } Array;
 
 /*
-	Reads a file containing raw samples into an array.
+The data type used for representing samples throughout.
 */
-void read_file(char* path, Array* buffer);
+typedef int sample_type;
 
 /*
-	Takes an array and returns a new snipped array from start_index to
-	end_index.
+Returns an empty array with element_count elements.
 */
-Array* snip_samples(Array* sample_array, long start_index, long end_index);
+Array* create_array(long element_count, size_t element_size);
 
 /*
-	Takes an array and returns a new looped array that repeats the original
-	elements in order for the given duration.
+Reads a file containing raw samples from its path and returns an array of samples.
 */
-Array* loop_samples(Array* sample_array, long duration);
+Array* read_file(char* file_path);
 
 /*
-	Takes two arrays and returns a new array whose elements are the sums of the
-	respective elements of the input arrays.
+Reads a file containing track_count interleaved tracks of raw samples and returns an array of tracks, each of which is an array of samples.
 */
-Array* add_samples(Array* source_sample_array, Array* target_sample_array);
+Array* read_tracked_file(char* file_path, int track_count);
+
+/*
+Returns the sample array at track_index in an array of tracks.
+*/
+Array* get_track(Array* track_array, int track_index);
+
+/*
+Takes an array and returns a new snipped array from start_index to end_index.
+*/
+Array* snip(Array* sample_array, long start_index, long end_index);
+
+/*
+Takes an array and returns a new looped array that repeats for the given duration.
+*/
+Array* loop(Array* sample_array, long duration);
+
+/*
+
+*/
+Array* add();
 
 #endif
