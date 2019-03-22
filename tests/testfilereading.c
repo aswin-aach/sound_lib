@@ -1,17 +1,16 @@
-#include "../soundlib.h"
 #include<stdio.h>
 #include<stdlib.h>
+#include "../soundlib.h"
 
 int main()
 {
 	char * filepath = "soundclip";
-	Array * samples = (Array*)malloc(sizeof(Array));
-	read_file(filepath, samples);
-	
-	//printf("samples length after read file = %d\n",samples->length);
-	
-	fwrite(samples->elements,sizeof(int),samples->length,stdout);
-	free(samples->elements);
-	free(samples);
+	Array samples = read_file(filepath);
+	if ( samples.elements == NULL ) {
+		fprintf(stderr,"Error with reading file");
+		return 1;
+	}
+	fwrite(samples.elements,sizeof(sample_type),samples.length,stdout);
+	free(samples.elements);
 	return 0;
 }

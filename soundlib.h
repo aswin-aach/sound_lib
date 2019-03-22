@@ -17,36 +17,36 @@ typedef int sample_type;
 /*
 Returns an empty array with element_count elements.
 */
-Array* create_array(long element_count, size_t element_size);
+Array create_array(long element_count, size_t element_size);
 
 /*
 Reads a file containing raw samples from its path and returns an array of samples.
 */
-Array* read_file(char* file_path);
+Array read_file(char* file_path);
 
 /*
 Reads a file containing track_count interleaved tracks of raw samples and returns an array of tracks, each of which is an array of samples.
 */
-Array* read_tracked_file(char* file_path, int track_count);
+Array read_tracked_file(char* file_path, int track_count);
 
 /*
 Returns the sample array at track_index in an array of tracks.
 */
-Array* get_track(Array* track_array, int track_index);
+Array get_track(Array track_array, int track_index);
 
 /*
 Takes an array and returns a new snipped array from start_index to end_index.
 */
-Array* snip(Array* sample_array, long start_index, long end_index);
+Array snip(Array sample_array, long start_index, long end_index);
 
 /*
 Takes an array and returns a new looped array that repeats for the given duration.
 */
-Array* loop(Array* sample_array, long duration);
+Array loop(Array sample_array, long duration);
 
 /*
 
 */
-Array* add();
+Array add(Array source, Array target, long offset);
 
 #endif
