@@ -45,8 +45,13 @@ Takes an array and returns a new looped array that repeats for the given duratio
 Array loop(Array sample_array, long duration);
 
 /*
-
+Returns a new array that's source added to target at index given by offset
 */
 Array add(Array source, Array target, long offset);
+
+/*
+Returns a new array that's the source array in reverse
+*/ 
+Array reverse(Array source);
 
 #endif

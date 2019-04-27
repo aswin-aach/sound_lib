@@ -122,3 +122,17 @@ Array add(Array source, Array target, long offset) {
 	return target;
 }
 
+Array reverse(Array source) {
+	if(is_invalid(source)) {
+		fprintf(stderr, "Invalid input to reverse().\n");
+		return source;
+	}
+	long length = source.length;
+	Array target = create_array(length, sizeof(sample_type));
+	sample_type* source_sample = source.elements;
+	sample_type* target_sample = target.elements;
+	while(length--) {
+		*(target_sample++) = *(source_sample + length);
+	}		
+	return target;
+}
