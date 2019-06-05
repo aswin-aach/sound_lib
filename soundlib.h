@@ -12,7 +12,7 @@ typedef struct Array {
 /*
 The data type used for representing samples throughout.
 */
-typedef int sample_type;
+typedef int16_t sample_type;
 
 /*
 Returns an empty array with element_count elements.

@@ -8,7 +8,7 @@ Array create_array(long element_count, size_t element_size) {
 		fprintf(stderr, "Failed to create array with %ld elements.\n", element_count);
 		return array;
 	}
-	array.elements = malloc(element_count * element_size);
+	array.elements = calloc(element_count, element_size);
 	array.length = element_count;
 	return array;
 }
