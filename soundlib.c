@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "soundlib.h"
+
 Array create_array(long element_count, size_t element_size) {
 	Array array;
 	if (element_count < 1) {
@@ -13,9 +14,9 @@ Array create_array(long element_count, size_t element_size) {
 	return array;
 }
 
-Array read_file(char* file_path) {
+Array read_file(char *file_path) {
 	Array buffer;
-	FILE* file_pointer = fopen(file_path, "rb");
+	FILE *file_pointer = fopen(file_path, "rb");
 	if(file_pointer == NULL) {
 		fprintf(stderr, "Failed to open \"%s\".\n", file_path);
 		return buffer;
@@ -31,7 +32,7 @@ Array read_file(char* file_path) {
 	return buffer;
 }
 
-Array read_tracked_file(char* file_path, int track_count) {
+Array read_tracked_file(char *file_path, int track_count) {
 	Array track_array;
 	Array interleaved_buffer = read_file(file_path);
 	if (interleaved_buffer.elements == NULL) {
@@ -47,9 +48,9 @@ Array read_tracked_file(char* file_path, int track_count) {
 		track[i].elements = malloc(sample_count * sample_size);
 		track[i].length = sample_count;
 	}
-	sample_type* sample = interleaved_buffer.elements;
+	sample_type *sample = interleaved_buffer.elements;
 	for (long i = 0; i < buffer_length; i++) {
-		sample_type* current_track_sample = track[i % track_count].elements;
+		sample_type *current_track_sample = track[i % track_count].elements;
 		current_track_sample[i / track_count] = sample[i];
 	}
 	free(interleaved_buffer.elements);
@@ -73,7 +74,7 @@ Array get_track(Array track_array, int track_index) {
 		fprintf(stderr, "Invalid track index.\n");
 		return track_array;
 	}
-	Array* track = track_array.elements;
+	Array *track = track_array.elements;
 	return track[track_index];
 }
 
@@ -82,11 +83,11 @@ Array snip(Array sample_array, long start_index, long end_index) {
 		fprintf(stderr, "Invalid input to snip().\n");
 		return sample_array;
 	}
-	sample_type* source_sample = sample_array.elements;
+	sample_type *source_sample = sample_array.elements;
 	long new_length = end_index - start_index + 1;
 	size_t sample_size = sizeof(sample_type);
 	Array snipped_sample_array = create_array(new_length, sample_size);
-	sample_type* snipped_sample = snipped_sample_array.elements;
+	sample_type *snipped_sample = snipped_sample_array.elements;
 	memcpy(snipped_sample, source_sample + start_index, new_length * sample_size);
 	return snipped_sample_array;
 }
@@ -96,11 +97,11 @@ Array loop(Array sample_array, long duration) {
 		fprintf(stderr, "Invalid input to loop().\n");
 		return sample_array;
 	}
-	sample_type* sample = sample_array.elements;
+	sample_type *sample = sample_array.elements;
 	long length = sample_array.length;
 	size_t sample_size = sizeof(sample_type);
 	Array looped_sample_array = create_array(duration, sample_size);
-	sample_type* looped_sample = looped_sample_array.elements;
+	sample_type *looped_sample = looped_sample_array.elements;
 	for (long i = 0; i < duration; i++) {
 		looped_sample[i] = sample[i % length];
 	}
@@ -112,8 +113,8 @@ Array add(Array source, Array target, long offset) {
 		fprintf(stderr, "Invalid input to add().\n");
 		return source;
 	}
-	sample_type* source_sample = source.elements;
-	sample_type* target_sample = target.elements;
+	sample_type *source_sample = source.elements;
+	sample_type *target_sample = target.elements;
 	long source_length = source.length;
 	long target_length = target.length;
 	for (long i = 0; i < source_length; i++) {
@@ -129,8 +130,8 @@ Array reverse(Array source) {
 	}
 	long length = source.length;
 	Array target = create_array(length, sizeof(sample_type));
-	sample_type* source_sample = source.elements;
-	sample_type* target_sample = target.elements;
+	sample_type *source_sample = source.elements;
+	sample_type *target_sample = target.elements;
 	while(length--) {
 		*(target_sample++) = *(source_sample + length);
 	}		

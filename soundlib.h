@@ -5,7 +5,7 @@
 Holds a generic array and its length. Mainly used for processing raw sample data.
 */
 typedef struct Array {
-	void* elements;
+	void *elements;
 	long length;
 } Array;
 
@@ -22,12 +22,12 @@ Array create_array(long element_count, size_t element_size);
 /*
 Reads a file containing raw samples from its path and returns an array of samples.
 */
-Array read_file(char* file_path);
+Array read_file(char *file_path);
 
 /*
 Reads a file containing track_count interleaved tracks of raw samples and returns an array of tracks, each of which is an array of samples.
 */
-Array read_tracked_file(char* file_path, int track_count);
+Array read_tracked_file(char *file_path, int track_count);
 
 /*
 Returns the sample array at track_index in an array of tracks.
