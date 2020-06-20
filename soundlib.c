@@ -1,7 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "soundlib.h"
+
+extern inline sample_type sample_upper_limit(){
+	return (1 << (8 * sizeof(sample_type) - 1)) - 1;
+}
 
 Array create_array(long element_count, size_t element_size) {
 	Array array;
@@ -136,4 +141,17 @@ Array reverse(Array source) {
 		*(target_sample++) = *(source_sample + length);
 	}		
 	return target;
+}
+
+Array sin_wave(sample_type amplitude, float frequency, long number_of_samples, long sampling_rate) {
+	Array sin_wave;
+	long index;
+	sample_type *elements;
+
+	sin_wave = create_array(number_of_samples, sizeof(sample_type));
+	elements = sin_wave.elements;
+	for(index = 0; index < sin_wave.length; ++index){
+		*(elements + index) = amplitude * sin((2 * M_PI * frequency * index) / sampling_rate);
+	}
+	return sin_wave;
 }

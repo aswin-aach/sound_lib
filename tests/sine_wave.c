@@ -1,4 +1,3 @@
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "soundlib.h"
@@ -10,28 +9,23 @@ long write_raw(Array array);
 
 int main(void)
 {
-	Array sine_440 = create_sine(0.5, 440.0, SAMPLING_RATE * 10l);
-	Array sine_430 = create_sine(0.5, 430.0, SAMPLING_RATE * 10l);
+	Array sine_28 = create_sine(1.0, 24.0, SAMPLING_RATE * 10l);
+	//Array sine_15b = create_sine(0.5, 15.0, SAMPLING_RATE * 10l);
 	
-	printf("%d bytes were printed", write_raw(add(sine_440, sine_430, 0)));
-	free(sine_440.elements);
-	free(sine_430.elements);
+	write_raw(sine_28);
+	free(sine_28.elements);
+	//free(sine_15b.elements);
 	return 0;
 }
 
-Array create_sine(double amplitude_ratio, float freq, long number_of_samples){
-	Array sine_wave = create_array(number_of_samples, sizeof(sample_type));
-	long index;
-	double amplitude = amplitude_ratio * ((1 << (8 * sizeof(sample_type))) - 1);
-	sample_type *elements = sine_wave.elements;
-	
-	for(index = 0; index < sine_wave.length; ++index){
-		*(elements + index) = amplitude * sin((2 * M_PI * freq * index ) / SAMPLING_RATE);
-	}
+Array create_sine(double amplitude_ratio, float freq, long number_of_samples){	
+	sample_type  amplitude = amplitude_ratio * sample_upper_limit();
+	Array sine_wave = sin_wave(amplitude, freq, number_of_samples, SAMPLING_RATE);
+
 	return sine_wave;
 }
 
 long write_raw(Array array){
-	return fwrite(array.elements, array.length,  sizeof(sample_type), stdout) / sizeof(sample_type);
+  return fwrite(array.elements, array.length,  sizeof(sample_type), stdout) / sizeof(sample_type);
 }
 		

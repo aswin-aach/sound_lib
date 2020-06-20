@@ -53,3 +53,6 @@ dkms.conf
 
 #file backups
 *~
+
+#build output
+out/

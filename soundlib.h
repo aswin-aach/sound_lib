@@ -15,6 +15,11 @@ The data type used for representing samples throughout.
 typedef int16_t sample_type;
 
 /*
+The largest value a sample can take
+*/
+sample_type sample_upper_limit();
+
+/*
 Returns an empty array with element_count elements.
 */
 Array create_array(long element_count, size_t element_size);
@@ -53,5 +58,10 @@ Array add(Array source, Array target, long offset);
 Returns a new array that's the source array in reverse
 */ 
 Array reverse(Array source);
+
+/*
+Returns a sine wave as a new array, not overflow safe
+*/
+Array sin_wave(sample_type amplitude, float frequency, long number_of_samples, long sampling_rate);
 
 #endif
