@@ -1,10 +1,10 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include "../soundlib.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "soundlib.h"
 
 int main()
 {
-	char * filepath = "soundclip";
+	char * filepath = "tests/samples/soundclip";
 	Array samples = read_file(filepath);
 	if ( samples.elements == NULL ) {
 		fprintf(stderr,"Error with reading file");

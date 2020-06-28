@@ -3,18 +3,18 @@ TESTOUTFILES = $(subst tests, out, $(TESTFILES:.c=.out))
 
 LDFLAGS = -Lout -lsound -lm
 
-all:	libsound.a
+all:	out/libsound.a
 
 tests:	$(TESTOUTFILES)
 
-out/%.out: libsound.a tests/%.c
-	cc -o $@ -I. $(word 2,$^) $(LDFLAGS)
+out/%.out: out/libsound.a tests/%.c
+	cc -o $@ -I. -Wall $(word 2,$^) $(LDFLAGS)
 
-libsound.a:	soundlib.o
+out/libsound.a:	out/soundlib.o
 	ar rcvs out/libsound.a out/soundlib.o
 
-soundlib.o:	out soundlib.c
-	cc -o out/soundlib.o -Wall -pedantic -c soundlib.c
+out/soundlib.o:	out soundlib.c
+	cc -o out/soundlib.o -Wall -pedantic-errors -c soundlib.c
 
 out:
 	mkdir -p out

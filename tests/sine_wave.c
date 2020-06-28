@@ -1,3 +1,8 @@
+/* 
+ * Creates a track with a sine wave of a certain frequency and writes to stdout. 
+ * Pipe the output to some file in order to play
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "soundlib.h"
@@ -9,11 +14,11 @@ long write_raw(Array array);
 
 int main(void)
 {
-	Array sine_28 = create_sine(1.0, 24.0, SAMPLING_RATE * 10l);
+	Array sine_220 = create_sine(0.75, 220.0, SAMPLING_RATE * 10l);
 	//Array sine_15b = create_sine(0.5, 15.0, SAMPLING_RATE * 10l);
 	
-	write_raw(sine_28);
-	free(sine_28.elements);
+	write_raw(sine_220);
+	free(sine_220.elements);
 	//free(sine_15b.elements);
 	return 0;
 }

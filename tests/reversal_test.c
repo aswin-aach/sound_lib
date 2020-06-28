@@ -1,6 +1,6 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include"../soundlib.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "soundlib.h"
 
 void printarray(Array array) {
 	sample_type* samples = array.elements;
@@ -40,7 +40,7 @@ void test_simple(){
 	free(rereversed.elements);
 }
 void test_from_file(){
-	Array source = read_file("forward");
+	Array source = read_file("tests/samples/Forward.raw");
 	Array reversed = reverse(source);
 	fwrite(reversed.elements, sizeof(sample_type), reversed.length, stdout);
 	free(source.elements);
