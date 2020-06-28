@@ -9,9 +9,9 @@
   * snipping
   * reversing
   * reading from raw file
+  * sine wave generation
 
   Supports a variable number of channels
 
   To create an audio track, 
-  Write a program referencing the functions defined in soundlib.h to sequentially manipulate audio samples.
-  Compile your program along with soundlib.c.
+  run make, compile and link your program with the output
