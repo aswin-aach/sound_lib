@@ -5,8 +5,8 @@
 Holds a generic array and its length. Mainly used for processing raw sample data.
 */
 typedef struct Array {
-	void *elements;
-	long length;
+    void *elements;
+    long length;
 } Array;
 
 /*
@@ -56,7 +56,7 @@ Array add(Array source, Array target, long offset);
 
 /*
 Returns a new array that's the source array in reverse
-*/ 
+*/
 Array reverse(Array source);
 
 /*
